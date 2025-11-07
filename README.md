@@ -24,9 +24,7 @@
 
 [Chuan Fang](https://fangchuan.github.io/), [Heng Li](https://hengli.me/), [Yixun Liang](https://yixunliang.github.io/), [Jia Zheng](https://bertjiazheng.github.io), [Yongsen Mao](https://sammaoys.github.io/), [Yuan Liu](https://liuyuan-pal.github.io/), [Rui Tang](https://scholar.google.com/citations?user=dwvfKSkAAAAJ), [Zihan Zhou](https://zihan-z.github.io), [Ping Tan](https://pingtan.people.ust.hk/index.html)
 
-
 **[HKUST Spatial Artificial Intelligence Lab](https://github.com/HKUST-SAIL)**; **[Manycore Tech Inc](https://manycoretech.com/)**
-
 
 </div>
 
@@ -41,6 +39,7 @@
 
 ## ✨ News
 
+- [Nov, 2025] SpatialGen is accepted to 3DV 2026!
 - [Sep, 2025] We release the paper of SpatialGen!
 - [Aug, 2025] Initial release of SpatialGen-1.0!
 
@@ -110,22 +109,19 @@ bash scripts/infer_spatialgen_t2s.sh
 
 [SpatialGen-1.0](https://huggingface.co/manycore-research/SpatialGen-1.0) is derived from [Stable-Diffusion-v2.1](https://github.com/Stability-AI/stablediffusion), which is licensed under the [CreativeML Open RAIL++-M License](https://github.com/Stability-AI/stablediffusion/blob/main/LICENSE-MODEL). [FLUX.1-Wireframe-dev-lora](https://huggingface.co/manycore-research/FLUX.1-Wireframe-dev-lora) is licensed under the [FLUX.1-dev Non-Commercial License](https://github.com/black-forest-labs/flux/blob/main/model_licenses/LICENSE-FLUX1-dev).
 
+## Citation
+
+```bibtex
+@inproceedings{SpatialGen,
+  title     = {SpatialGen: Layout-guided 3D Indoor Scene Generation},
+  author    = {Fang, Chuan and Li, Heng and Liang, Yixu and Zheng, Jia and Mao, Yongsen and Liu, Yuan and Tang, Rui and Zhou, Zihan and Tan, Ping},
+  booktitle = {International Conference on 3D Vision},
+  year      = {2026}
+}
+```
+
 ## Acknowledgements
 
 We would like to thank the following projects that made this work possible:
 
 [DiffSplat](https://github.com/chenguolin/DiffSplat) | [SD 2.1](https://github.com/Stability-AI/stablediffusion) | [TAESD](https://github.com/madebyollin/taesd) | [FLUX](https://github.com/black-forest-labs/flux/) | [SpatialLM](https://github.com/manycore-research/SpatialLM)
-
-## Citation
-
-```bibtex
-@article{SpatialGen,
-  title         = {SpatialGen: Layout-guided 3D Indoor Scene Generation},
-  author        = {Fang, Chuan and Li, Heng and Liang, Yixu and Zheng, Jia and Mao, Yongsen and Liu, Yuan and Tang, Rui and Zhou, Zihan and Tan, Ping},
-  journal       = {arXiv preprint},
-  year          = {2025},
-  eprint        = {2509.14981},
-  archivePrefix = {arXiv},
-  primaryClass  = {cs.CV}
-}
-```
