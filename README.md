@@ -5,14 +5,11 @@ This is the repository that contains webpage code for the [SpatialGen website](h
 If you find SpatialGen useful for your work please cite:
 
 ```bibtex
-@article{SpatialGen,
-  title         = {SpatialGen: Layout-guided 3D Indoor Scene Generation},
-  author        = {Fang, Chuan and Li, Heng and Liang, Yixu and Zheng, Jia and Mao, Yongsen and Liu, Yuan and Tang, Rui and Zhou, Zihan and Tan, Ping},
-  journal       = {arXiv preprint},
-  year          = {2025},
-  eprint        = {2509.14981},
-  archivePrefix = {arXiv},
-  primaryClass  = {cs.CV}
+@inproceedings{SpatialGen,
+  title     = {SpatialGen: Layout-guided 3D Indoor Scene Generation},
+  author    = {Fang, Chuan and Li, Heng and Liang, Yixu and Zheng, Jia and Mao, Yongsen and Liu, Yuan and Tang, Rui and Zhou, Zihan and Tan, Ping},
+  booktitle = {International Conference on 3D Vision},
+  year      = {2026}
 }
 ```
 
