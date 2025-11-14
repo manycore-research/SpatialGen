@@ -1,4 +1,4 @@
-opt_type: "spatialgen_sd21"
+opt_type: "scmvae_sd21"
 
 opt:
   dataset_names: ["spatialgen"]
@@ -19,12 +19,12 @@ lr_scheduler:
   num_warmup_steps: 1000
 
 train:
-  batch_size_per_gpu: 1
-  epochs: 1000
+  batch_size_per_gpu: 8
+  epochs: 10000
   log_freq: 50
   early_eval_freq: 100
   eval_freq: 1000
-  save_freq: 500
+  save_freq: 1000
   eval_freq_epoch: 10
   save_freq_epoch: 10
   ckpts_total_limit: 10

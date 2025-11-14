@@ -21,25 +21,19 @@ class Options:
 
     
     # training datasets
-    koolai_data_dir: str = "/project/lrmcongen/data/roomverse_data/processed_data"
+    spatialgen_data_dir: str = "/project/lrmcongen/data/roomverse_data/processed_data"
     train_split_file: str = "/project/lrmcongen/data/roomverse_data/new_perspective_trains.txt"
     invalid_split_file: str = "/project/lrmcongen/data/roomverse_data/new_perspective_invalid_scenes.txt"
     prompt_embed_dir: Optional[str] = None  # precompute T5 embedding
     prediction_types: list[str] = field(default_factory=lambda: ["rgb", "depth"])
     use_metric_depth: bool = False
-    use_supervision_view: bool = False
     use_layout_prior: bool = False
     use_scene_coord_map: bool = False
-    
-    # scannet_data_dir: str = ""
-    # scannetpp_data_dir: str = ""
-    # scannetpp_train_split_file: str = ""
-    # scannetpp_test_split_file: str = ""
     
     hypersim_data_dir: str = "/project/lrmcongen/data/hypersim/evermotion_dataset/semantic_images2"
 
     # testing datasets
-    dataset_name: str = "spatialgen"
+    dataset_names: List[str] = field(default_factory=lambda: ["spatialgen"])
     test_data_dir: str = "/project/lrmcongen/data/roomverse_data/processed_data"
     test_split_file: str = "/project/lrmcongen/data/roomverse_data/new_perspective_test.txt"
     spatiallm_data_dir: str = "./demo/spatiallm_testset/"

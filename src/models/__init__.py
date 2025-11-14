@@ -7,9 +7,6 @@ from torch import optim
 from torch.optim import lr_scheduler
 from diffusers.optimization import get_scheduler
 
-# from src.models.elevest import ElevEst
-# from src.models.gsrecon import GSRecon
-# from src.models.gsvae import GSAutoencoderKL
 
 
 def get_optimizer(name: str, params: Parameter, **kwargs) -> Optimizer:
