@@ -15,7 +15,6 @@ import os.path as osp
 import argparse
 import logging
 import math
-from collections import defaultdict
 from packaging import version
 import gc
 import shutil
@@ -46,7 +45,7 @@ from src.models.pose_adapter import RayMapEncoder, RayMapEncoderConfig
 
 import src.utils.util as util
 from src.utils.typing import *
-from src.utils.pcl_ops import save_input_output_pointcloud, save_input_output_pointcloud_with_sem, cross_viewpoint_rendering, cross_viewpoint_rendering_pt3d
+from src.utils.pcl_ops import save_input_output_pointcloud, save_input_output_pointcloud_with_sem, cross_viewpoint_rendering_pt3d
 from src.utils.vis_util import apply_depth_to_colormap, save_color_depth_image
 from src.utils.misc import print_memory, worker_init_fn, enable_flash_attn_if_avail
 
@@ -1272,18 +1271,6 @@ def main():
         help="ZeRO stage type for DeepSpeed"
     )
     parser.add_argument(
-        "--load_pretrained_gsvae_model",
-        type=str,
-        default='/project/lrmcongen/codes/fangchuan/DiffSplat/out/gsvae_sd_spiral',
-        help="Tag of a pretrained GSVAE in this project"
-    )
-    parser.add_argument(
-        "--load_pretrained_gsvae_model_ckpt",
-        type=int,
-        default=100000,
-        help="Iteration of the pretrained GSVAE checkpoint"
-    )
-    parser.add_argument(
         "--mvd_warmup_steps",
         type=int,
         default=10000,
@@ -1293,6 +1280,12 @@ def main():
         "--use_tiny_vae",
         action="store_true",
         help="Whether to use tiny VAE for training.",
+    )
+    parser.add_argument(
+        "--pretrained_tiny_vae_model_path",
+        type=str,
+        default='/alluxio/training/experiments/zhenqing/spatialgen-publish/spatialgen/pretrained_ckpts/tinyvae-ckpt-047000',
+        help="Tag of a pretrained GSVAE in this project"
     )
     parser.add_argument(
         "--use_scm_conf_map",
@@ -1469,13 +1462,12 @@ def main():
     
     vae = AutoencoderKL.from_pretrained(opt.pretrained_model_name_or_path, subfolder="vae")
     if args.use_tiny_vae:
-        scm_vae = AutoencoderTiny.from_pretrained('/data-nas/experiments/zhenqing/diffsplat/tinyvae-ckpt-wconf-016000')
-        logger.info(f"Load SCM_VAE from /data-nas/experiments/zhenqing/diffsplat/tinyvae-ckpt-wconf-016000")
+        scm_vae = AutoencoderTiny.from_pretrained(args.pretrained_tiny_vae_model_path)
+        logger.info(f"Load SCM_VAE from {args.pretrained_tiny_vae_model_path}")
         assert args.use_scm_conf_map, "use_scm_conf_map should be True when using tiny vae"
     else:
-        scm_vae = AutoencoderKL.from_pretrained('/data-nas/experiments/zhenqing/diffsplat/sdvae-wconf_ckpt-010000', subfolder=None)
-        logger.info(f"Load SCM_VAE from /data-nas/experiments/zhenqing/diffsplat/sdvae-wconf_ckpt-010000")
-        
+        scm_vae = AutoencoderKL.from_pretrained(opt.pretrained_model_name_or_path, subfolder="depth_vae")
+        logger.info(f"Load SCM_VAE from {opt.pretrained_model_name_or_path}/depth_vae")
     tokenizer = CLIPTokenizer.from_pretrained(opt.pretrained_model_name_or_path, subfolder="tokenizer")
     text_encoder = CLIPTextModel.from_pretrained(opt.pretrained_model_name_or_path, subfolder="text_encoder")
     if os.path.exists(os.path.join(opt.pretrained_model_name_or_path, "ray_encoder")):
