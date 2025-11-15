@@ -17,7 +17,7 @@ from diffusers.configuration_utils import ConfigMixin, register_to_config, Froze
 from diffusers.utils import deprecate
 
 from src.utils.typing import *
-from src.models.pose_adapter import RayMapEncoder, RayMapEncoderConfig
+from src.models.pose_adapter import RayMapEncoder
 from diffusers_spatialgen import UNetMVMM2DConditionModel
 
 logger = get_logger(__name__)
