@@ -17,7 +17,7 @@ SD21_PRETRAINED_FOLDER="/alluxio/training/experiments/zhenqing/spatialgen-publis
 VGGNET_PRETRAINED_MODEL_PATH="/alluxio/training/experiments/zhenqing/cache/lpips/vgg16-397923af.pth"
 SPATIALGEN_DATASET_FOLDER="/alluxio/training/dataset/qunhe/PanoRoom/roomverse_data/processed_data_spiral_randfov"
 SPATIALGEN_TRAIN_SPLIT_FILE="/alluxio/training/dataset/qunhe/PanoRoom/roomverse_data/final_57k_perspective_trains.txt"
-PRETRAINED_TINY_VAE_FOLDER=/alluxio/training/experiments/zhenqing/spatialgen-publish/spatialgen/pretrained_ckpts/tinyvae-ckpt-047000;
+PRETRAINED_TINY_VAE_FOLDER=/alluxio/training/experiments/zhenqing/spatialgen-publish/spatialgen/pretrained_ckpts/tinyvae-ckpt-wconf-016000;
 
 export PYTHONPATH=$PYTHONPATH:$PWD
 echo "PYTHONPATH: $PYTHONPATH"
@@ -58,6 +58,7 @@ accelerate launch --mixed_precision fp16 \
         --use_scm_conf_map \
         --allow_tf32 \
         --output_dir $OUTPUT_FOLDER \
+        --pretrained_tiny_vae_model_path $PRETRAINED_TINY_VAE_FOLDER \
         opt.spatialgen_data_dir=$SPATIALGEN_DATASET_FOLDER \
         opt.train_split_file=$SPATIALGEN_TRAIN_SPLIT_FILE \
         opt.input_res=512 \
