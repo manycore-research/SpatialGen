@@ -529,12 +529,12 @@ class BasicMVMMTransformerBlock(nn.Module):
                             num_output_views=self.num_output_views,
                             num_tasks=self.num_tasks,
                         )
-        if self.norm_type == "ada_norm_zero":
-            mid_attn_output = gate_msa.unsqueeze(1) * mid_attn_output
-        elif self.norm_type == "ada_norm_single":
-            mid_attn_output = gate_msa * mid_attn_output
+            if self.norm_type == "ada_norm_zero":
+                mid_attn_output = gate_msa.unsqueeze(1) * mid_attn_output
+            elif self.norm_type == "ada_norm_single":
+                mid_attn_output = gate_msa * mid_attn_output
 
-        hidden_states = mid_attn_output + hidden_states
+            hidden_states = mid_attn_output + hidden_states
             # logger.info(f"[BasicMVMMTransformerBlock] attn_joint_mid hidden_states shape: {hidden_states.shape}")
             
         # 3. Cross-Attention

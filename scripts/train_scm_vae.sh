@@ -1,5 +1,5 @@
 NUM_MACHINES=1
-NUM_LOCAL_GPUS=8
+NUM_LOCAL_GPUS=2
 MACHINE_RANK=0
 MAIN_MACHINE_PROT="29501"  # fill your machine port here
 
@@ -7,9 +7,6 @@ EXEC_FILE="src/train_scm_vae.py"
 CONFIG_FILE="configs/vae_sd15.yaml"
 TAG="train_scm_vae_wconf"
 
-RANK=$MACHINE_RANK
-workers=1
-gpus=1
 OUTPUT_FOLDER="./out"
 
 VAE_PRETRAINED_FOLDER="/data-nas/experiments/zhenqing/cache/stable-diffusion-2-1"
@@ -62,7 +59,11 @@ $@
 
 
 # multi GPU version
-# accelerate launch --num_processes=$((workers * gpus)) --num_machines=$workers --machine_rank=$RANK --main_process_port=$MAIN_MACHINE_PROT \
+# accelerate launch --mixed_precision fp16 \
+#     --num_machines $NUM_MACHINES \
+#     --num_processes $(( $NUM_MACHINES * $NUM_LOCAL_GPUS )) \
+#     --machine_rank $MACHINE_RANK \
+#     --main_process_port $MAIN_MACHINE_PROT \
 #             src/train_scm_vae.py \
 #             --config_file $CONFIG_FILE \
 #             --tag $TAG \

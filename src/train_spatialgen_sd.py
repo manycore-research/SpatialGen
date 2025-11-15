@@ -1457,15 +1457,15 @@ def main():
         "num_input_views": opt.num_input_views,
         "num_output_views": opt.num_views - opt.num_input_views,
         "num_tasks": num_tasks,
-        "cd_attention_mid": num_tasks > 1,
-        "multiview_attention": True,
+        "cd_attention_mid": num_tasks > 1 and opt.enable_mm_attn,
+        "multiview_attention": opt.enable_mv_attn,
         "sparse_mv_attention": False,
         "disable_mv_attention_in_64x64": opt.input_res == 512,
     }
     unet, loading_info = UNetMVMM2DConditionModel.from_pretrained_new(opt.pretrained_model_name_or_path, subfolder="unet",
             low_cpu_mem_usage=False, ignore_mismatched_sizes=True, output_loading_info=True, **unet_from_pretrained_kwargs)
     logger.info(f"Loading info: {loading_info}\n")
-    logger.info(f"opt.input_concat_plucker: {opt.input_concat_plucker}, opt.input_concat_binary_mask: {opt.input_concat_binary_mask}, opt.input_concat_warpped_image: {opt.input_concat_warpped_image} \n")
+    logger.info(f"opt.input_concat_plucker: {opt.input_concat_plucker}, opt.input_concat_binary_mask: {opt.input_concat_binary_mask}, opt.input_concat_warpped_image: {opt.input_concat_warpped_image}, opt.enable_mv_attn: {opt.enable_mv_attn}, opt.enable_mm_attn: {opt.enable_mm_attn}\n")
     
     vae = AutoencoderKL.from_pretrained(opt.pretrained_model_name_or_path, subfolder="vae")
     if args.use_tiny_vae:

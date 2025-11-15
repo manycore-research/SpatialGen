@@ -4,6 +4,8 @@ opt:
   dataset_names: ["spatialgen"]
   spatialgen_data_dir: "/data-nas/data/dataset/qunhe/PanoRoom/roomverse_data/processed_data_8k"
   train_split_file: "/data-nas/data/dataset/qunhe/PanoRoom/roomverse_data/processed_data_8k/8k_perspective_trains.txt"
+  enable_mv_attn: true
+  enable_mm_attn: false
 
 optimizer:
   name: "adamw"

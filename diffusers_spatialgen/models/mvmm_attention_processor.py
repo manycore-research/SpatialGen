@@ -292,7 +292,7 @@ class XFormersJointAttnProcessor:
 
         # reshape back
         if num_tasks > 1:
-            # Method3: modalral-attn: only fuse different modal tokens
+            # Method3: modal-attn: only fuse different modal tokens
             hidden_states = rearrange(hidden_states, "(b v) (n_t l) d -> (b n_t v) l d", n_t=num_tasks, v=num_all_views)
         # logger.info(f"[XFormersJointAttnProcessor]: hiidden states {hidden_states.shape}")
 

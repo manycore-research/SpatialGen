@@ -104,6 +104,10 @@ class Options:
     input_concat_binary_mask: bool = True
     input_concat_warpped_image: bool = False
     
+    # multi-view & multi-modal attention
+    enable_mv_attn: bool = True  # enable multi-view attention in the up blocks
+    enable_mm_attn: bool = True  # enable multi-modal attention in the mid blocks
+    
     ### Inference
     init_std: float = 0.  # cf. Instant3D inference trick, `0.` means not used
     init_noise_strength: float = 0.98  # used with `init_std`; cf. Instant3D inference trick, `1.` means not used
