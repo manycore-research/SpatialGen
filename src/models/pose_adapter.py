@@ -107,30 +107,30 @@ class CustomTransformer(nn.Module):
             x = ff(x) + x
         return self.norm(x)
 
-class RayMapEncoderConfig(PretrainedConfig):
-    model_type = "ray_map_encoder"
+# class RayMapEncoderConfig(PretrainedConfig):
+#     model_type = "ray_map_encoder"
 
-    def __init__(self,
-                 image_size: int = 512,
-                 patch_size: int = 8,
-                 in_channel: int=6,
-                 out_channel: int = 16,
-                 inter_dims: int = 384,
-                 transformer_layers: int = 1,
-                 transformer_heads: int = 6,
-                 transformer_dim_head: int = 64,
-                 transformer_mlp_dim: int = 384,
-                 **kwargs):
-        super().__init__(**kwargs)
-        self.image_size = image_size
-        self.patch_size = patch_size
-        self.in_channel = in_channel
-        self.out_channel = out_channel
-        self.inter_dims = inter_dims
-        self.transformer_layers = transformer_layers
-        self.transformer_heads = transformer_heads
-        self.transformer_dim_head = transformer_dim_head
-        self.transformer_mlp_dim = transformer_mlp_dim
+#     def __init__(self,
+#                  image_size: int = 512,
+#                  patch_size: int = 8,
+#                  in_channel: int=6,
+#                  out_channel: int = 16,
+#                  inter_dims: int = 384,
+#                  transformer_layers: int = 1,
+#                  transformer_heads: int = 6,
+#                  transformer_dim_head: int = 64,
+#                  transformer_mlp_dim: int = 384,
+#                  **kwargs):
+#         super().__init__(**kwargs)
+#         self.image_size = image_size
+#         self.patch_size = patch_size
+#         self.in_channel = in_channel
+#         self.out_channel = out_channel
+#         self.inter_dims = inter_dims
+#         self.transformer_layers = transformer_layers
+#         self.transformer_heads = transformer_heads
+#         self.transformer_dim_head = transformer_dim_head
+#         self.transformer_mlp_dim = transformer_mlp_dim
         
 # class RayMapEncoder(PreTrainedModel):
 class RayMapEncoder(ModelMixin, ConfigMixin):
@@ -152,7 +152,7 @@ class RayMapEncoder(ModelMixin, ConfigMixin):
         super().__init__()
         image_height, image_width = pair(image_size)
         patch_height, patch_width = pair(patch_size)
-
+        # print(f"[RayMapEncoder] image_size: {image_height} x {image_width}, patch_size: {patch_height} x {patch_width}")
         assert image_height % patch_height == 0 and image_width % patch_width == 0, 'Image dimensions must be divisible by the patch size.'
 
         patch_dim = in_channel * patch_height * patch_width
@@ -383,7 +383,7 @@ class RayMapEncoder(ModelMixin, ConfigMixin):
         x = rearrange(x, "B T C H W -> (B T) C H W")
         # logger.info(f'input: {x.shape}')
         x = self.to_patch_embedding(x)
-        # logger.info(f'patch_embedd: {x.shape}')
+        # logger.info(f'self.pos_embedding: {self.pos_embedding.shape}')
         x += self.pos_embedding.to(device, dtype=x.dtype)
 
         x = self.transformer(x)

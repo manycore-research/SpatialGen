@@ -1,5 +1,5 @@
 NUM_MACHINES=1
-NUM_LOCAL_GPUS=4
+NUM_LOCAL_GPUS=2
 MACHINE_RANK=0
 MAIN_MACHINE_PROT="29501"  # fill your machine port here
 
@@ -13,11 +13,11 @@ OUTPUT_FOLDER="./out"
 # VGGNET_PRETRAINED_MODEL_PATH="/data-nas/experiments/zhenqing/cache/lpips/vgg16-397923af.pth"
 # SPATIALGEN_DATASET_FOLDER="/data-nas/data/dataset/qunhe/PanoRoom/roomverse_data/processed_data_8k"
 # SPATIALGEN_TRAIN_SPLIT_FILE="/data-nas/data/dataset/qunhe/PanoRoom/roomverse_data/processed_data_8k/8k_perspective_trains.txt"
-SD21_PRETRAINED_FOLDER="/alluxio/training/experiments/zhenqing/spatialgen-publish/spatialgen/pretrained_ckpts/spatialgen-1.0"
-VGGNET_PRETRAINED_MODEL_PATH="/alluxio/training/experiments/zhenqing/cache/lpips/vgg16-397923af.pth"
-SPATIALGEN_DATASET_FOLDER="/alluxio/training/dataset/qunhe/PanoRoom/roomverse_data/processed_data_spiral_randfov"
-SPATIALGEN_TRAIN_SPLIT_FILE="/alluxio/training/dataset/qunhe/PanoRoom/roomverse_data/final_57k_perspective_trains.txt"
-PRETRAINED_TINY_VAE_FOLDER=/alluxio/training/experiments/zhenqing/spatialgen-publish/spatialgen/pretrained_ckpts/tinyvae-ckpt-wconf-016000;
+SD21_PRETRAINED_FOLDER="/seaweedfs/training/experiments/zhenqing/cache/stable-diffusion-v2-1/"
+VGGNET_PRETRAINED_MODEL_PATH="/seaweedfs/training/experiments/zhenqing/cache/lpips/vgg16-397923af.pth"
+SPATIALGEN_DATASET_FOLDER="/seaweedfs/training/dataset/qunhe/PanoRoom/roomverse_data/processed_data_spiral_randfov"
+SPATIALGEN_TRAIN_SPLIT_FILE="/seaweedfs/training/dataset/qunhe/PanoRoom/roomverse_data/final_57k_perspective_trains.txt"
+PRETRAINED_TINY_VAE_FOLDER=/seaweedfs/training/experiments/zhenqing/spatialgen-publish/spatialgen/pretrained_ckpts/tinyvae-ckpt-wconf-016000;
 
 export PYTHONPATH=$PYTHONPATH:$PWD
 echo "PYTHONPATH: $PYTHONPATH"
@@ -61,7 +61,7 @@ accelerate launch --mixed_precision fp16 \
         --pretrained_tiny_vae_model_path $PRETRAINED_TINY_VAE_FOLDER \
         opt.spatialgen_data_dir=$SPATIALGEN_DATASET_FOLDER \
         opt.train_split_file=$SPATIALGEN_TRAIN_SPLIT_FILE \
-        opt.input_res=512 \
+        opt.input_res=256 \
         opt.num_input_views=1 \
         opt.num_views=8 \
         opt.prediction_type=v_prediction \

@@ -41,7 +41,7 @@ from src.options import opt_dict, Options
 from src.data import MixDataset
 from src.models import get_optimizer, get_lr_scheduler
 from src.models.cat3d_adapter import CAT3DAdaptor
-from src.models.pose_adapter import RayMapEncoder, RayMapEncoderConfig
+from src.models.pose_adapter import RayMapEncoder
 
 import src.utils.util as util
 from src.utils.typing import *
@@ -1475,12 +1475,10 @@ def main():
             opt.pretrained_model_name_or_path,
             subfolder="ray_encoder",
         )
+        print(f"Load ray encoder from {opt.pretrained_model_name_or_path}/ray_encoder")
     else:
-        ray_encoder_cfg = RayMapEncoderConfig(
-            image_size=opt.input_res,
-            patch_size=8,
-        )
-        ray_encoder = RayMapEncoder(config=ray_encoder_cfg)
+        ray_encoder = RayMapEncoder(image_size=opt.input_res, patch_size=8,)
+        print(f"Initialize ray encoder from scratch. image_size: {opt.input_res}")
         
     if not opt.edm_style_training:
         noise_scheduler = DDPMScheduler.from_pretrained(opt.pretrained_model_name_or_path, subfolder="scheduler")

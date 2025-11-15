@@ -2289,13 +2289,6 @@ class MixDataset(Dataset):
             data["layout_depth_metric_input"] = layout_depths[:T_in]
             data["layout_depth_metric_target"] = layout_depths[T_in : self.num_sample_views]
         data["intrinsic"] = intrinsic_mat
-        if self.use_add_supervision_view:
-            data["image_supervised"] = super_images
-            data["depth_supervised"] = super_depths
-            data["semantic_supervised"] = super_semantics
-            data["pose_supervised"] = super_Ts
-            data["plucker_rays_supervised"] = super_plucker_rays
-            data["rays_supervised"] = super_rays
         if self.is_validation and controlnet_rgbs is not None:
             data["controlnet_image_input"] = controlnet_rgbs[:T_in]
             data["controlnet_image_target"] = controlnet_rgbs[T_in : self.num_sample_views]
@@ -2752,15 +2745,15 @@ if __name__=="__main__":
     from src.utils.misc import get_device, todevice
 
     device = torch.device("cpu")
-    spatialgen_persp_data_dir = "/data-nas/data/dataset/qunhe/PanoRoom/roomverse_data/processed_data_8k"
+    spatialgen_persp_data_dir = "/seaweedfs/training/dataset/qunhe/PanoRoom/roomverse_data/processed_data_spiral_randfov"
     hypersim_data_dir = None
     st3d_data_dir = None
-    spatialgen_split_file = "/data-nas/data/dataset/qunhe/PanoRoom/roomverse_data/processed_data_8k/8k_perspective_trains.txt"
+    spatialgen_split_file = "/seaweedfs/training/dataset/qunhe/PanoRoom/roomverse_data/final_57k_perspective_trains.txt"
     
     T_in = 1
     T_out = 7
     total_view = T_in + T_out
-    image_width = 512
+    image_width = 256
     use_metric_depth = False
     use_scene_coord_map = True
     use_layout_prior = True
