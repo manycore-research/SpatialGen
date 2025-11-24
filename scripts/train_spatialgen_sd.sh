@@ -1,3 +1,4 @@
+# adjust the following parameters as needed
 NUM_MACHINES=1
 NUM_LOCAL_GPUS=2
 MACHINE_RANK=0
@@ -9,10 +10,7 @@ TAG="train_spatialgen_sd21"
 
 OUTPUT_FOLDER="./out"
 
-# SD21_PRETRAINED_FOLDER="/data-nas/experiments/zhenqing/cache/stable-diffusion-2-1"
-# VGGNET_PRETRAINED_MODEL_PATH="/data-nas/experiments/zhenqing/cache/lpips/vgg16-397923af.pth"
-# SPATIALGEN_DATASET_FOLDER="/data-nas/data/dataset/qunhe/PanoRoom/roomverse_data/processed_data_8k"
-# SPATIALGEN_TRAIN_SPLIT_FILE="/data-nas/data/dataset/qunhe/PanoRoom/roomverse_data/processed_data_8k/8k_perspective_trains.txt"
+# replace the following paths to your own paths
 SD21_PRETRAINED_FOLDER="/seaweedfs/training/experiments/zhenqing/cache/stable-diffusion-v2-1/"
 VGGNET_PRETRAINED_MODEL_PATH="/seaweedfs/training/experiments/zhenqing/cache/lpips/vgg16-397923af.pth"
 SPATIALGEN_DATASET_FOLDER="/seaweedfs/training/dataset/qunhe/PanoRoom/roomverse_data/processed_data_spiral_randfov"

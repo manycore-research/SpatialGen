@@ -107,34 +107,7 @@ class CustomTransformer(nn.Module):
             x = ff(x) + x
         return self.norm(x)
 
-# class RayMapEncoderConfig(PretrainedConfig):
-#     model_type = "ray_map_encoder"
-
-#     def __init__(self,
-#                  image_size: int = 512,
-#                  patch_size: int = 8,
-#                  in_channel: int=6,
-#                  out_channel: int = 16,
-#                  inter_dims: int = 384,
-#                  transformer_layers: int = 1,
-#                  transformer_heads: int = 6,
-#                  transformer_dim_head: int = 64,
-#                  transformer_mlp_dim: int = 384,
-#                  **kwargs):
-#         super().__init__(**kwargs)
-#         self.image_size = image_size
-#         self.patch_size = patch_size
-#         self.in_channel = in_channel
-#         self.out_channel = out_channel
-#         self.inter_dims = inter_dims
-#         self.transformer_layers = transformer_layers
-#         self.transformer_heads = transformer_heads
-#         self.transformer_dim_head = transformer_dim_head
-#         self.transformer_mlp_dim = transformer_mlp_dim
-        
-# class RayMapEncoder(PreTrainedModel):
 class RayMapEncoder(ModelMixin, ConfigMixin):
-    # config_class = RayMapEncoderConfig
     @register_to_config
     def __init__(self, 
                  image_size: int = 512,
@@ -185,10 +158,6 @@ class RayMapEncoder(ModelMixin, ConfigMixin):
         )
     @classmethod
     def from_pretrained_new(cls, pretrained_model_name_or_path, *model_args, **kwargs):
-        # Load config (mandatory for PretrainedModel)
-        # config = kwargs.pop("config", None)
-        # if config is None:
-        #     config = RayMapEncoderConfig.from_pretrained(pretrained_model_name_or_path, **kwargs)
         
         config_path = pretrained_model_name_or_path
         cache_dir = kwargs.pop("cache_dir", None)

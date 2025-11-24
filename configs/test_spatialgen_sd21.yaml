@@ -1,9 +1,11 @@
 opt_type: "spatialgen_sd21"
 
 opt:
-  dataset_name: "spatialgen"
-  test_data_dir: "<put your spatialgen-testset data folder here/>"
-  test_split_file: "put your spatialgen-testset data folder here/test_split.txt"
+  dataset_names: ["spatialgen"]
+  test_data_dir: "/seaweedfs/training/experiments/zhenqing/spatialgen-publish/SpatialGen/example_data/scenes"
+  test_split_file: "/seaweedfs/training/experiments/zhenqing/spatialgen-publish/SpatialGen/example_data/scenes/test_split.txt"
+  enable_mv_attn: true
+  enable_mm_attn: true
 
 optimizer:
   name: "adamw"

@@ -1,3 +1,4 @@
+# adjust the following parameters as needed
 NUM_MACHINES=1
 NUM_LOCAL_GPUS=2
 MACHINE_RANK=0
@@ -9,6 +10,7 @@ TAG="train_scm_vae_wconf"
 
 OUTPUT_FOLDER="./out"
 
+# replace the following paths to your own paths
 VAE_PRETRAINED_FOLDER="/data-nas/experiments/zhenqing/cache/stable-diffusion-2-1"
 VGGNET_PRETRAINED_MODEL_PATH="/data-nas/experiments/zhenqing/cache/lpips/vgg16-397923af.pth"
 SPATIALGEN_DATASET_FOLDER="/data-nas/data/dataset/qunhe/PanoRoom/roomverse_data/processed_data_8k"

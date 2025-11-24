@@ -39,6 +39,7 @@
 
 ## ✨ News
 
+- [Nov, 2025] We release the training code of SpatialGen, incuding the multi-view diffusion training and the gassuain optimization.
 - [Nov, 2025] SpatialGen is accepted to 3DV 2026!
 - [Sep, 2025] We release the paper of SpatialGen!
 - [Aug, 2025] Initial release of SpatialGen-1.0!
@@ -46,7 +47,7 @@
 ## 📋 Release Plan
 
 - [x] Provide inference code of SpatialGen.
-- [ ] Provide training instruction for SpatialGen.
+- [x] Provide training instruction for SpatialGen.
 - [ ] Release SpatialGen dataset.
 
 ## SpatialGen Models
@@ -71,7 +72,7 @@ Tested with the following environment:
 
 ```bash
 # clone the repository
-git clone https://github.com/manycore-research/SpatialGen.git
+git clone --recursive  https://github.com/manycore-research/SpatialGen.git 
 cd SpatialGen
 
 python -m venv .venv
@@ -103,6 +104,18 @@ python3 preprocess/prepare_flux_ctrlnet_conditions.py --dataset_dir /path/to/you
 # in captions/spatialgen_testset_captions.jsonl, we provide text prompts of different styles for each room, 
 # choose a pair of scene_id and prompt to run the text2scene experiment
 bash scripts/infer_spatialgen_t2s.sh
+```
+
+### Training
+
+```bash
+# TODO: preprocess the dataset
+
+# run SCM_VAE training
+bash scripts/train_scm_vae.sh
+
+# run multi-view diffusion training
+bash scripts/train_spatialgen_mvd.sh
 ```
 
 ## License

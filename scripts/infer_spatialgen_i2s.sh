@@ -3,7 +3,7 @@ echo "PYTHONPATH: $PYTHONPATH"
 
 export CUDA_LAUNCH_BLOCKING=1
 
-
+# replace the following paths to your own paths
 python3 src/inference_sd.py \
     --config_file configs/test_spatialgen_sd21.yaml \
     --tag Img23D_exp_spatialgen \
@@ -11,8 +11,9 @@ python3 src/inference_sd.py \
     --seed 2025 \
     --infer_tag=Img23D_exp_spatialgen_16view_0824 \
     --guidance_scale 3.5 \
+    --scene_id=scene_00000 \
     --output_dir ./out  \
-    opt.pretrained_model_name_or_path=spatialgen_ckpts \
+    opt.pretrained_model_name_or_path=/seaweedfs/training/experiments/zhenqing/spatialgen-publish/spatialgen/pretrained_ckpts/spatialgen-1.0 \
     opt.input_res=512 \
     opt.num_input_views=1 \
     opt.num_views=16 \

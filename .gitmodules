@@ -1,0 +1,3 @@
+[submodule "src/recons/Sparse-RaDeGS"]
+	path = src/recons/Sparse-RaDeGS
+	url = https://github.com/fangchuan/Sparse-RaDeGS.git

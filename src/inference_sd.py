@@ -817,7 +817,7 @@ def model_inference(
     all_rgbs = torch.cat([batch["image_input"][0:1], batch["image_target"][0:1]], dim=1).to(
         dtype=weight_dtype
     )  # B,N,3,H,W
-    if opt.dataset_name == "spatialgen":
+    if opt.dataset_names == ["spatialgen"]:
         all_depths = torch.cat([batch["depth_input"][0:1], batch["depth_target"][0:1]], dim=1).to(
             dtype=weight_dtype
         )  # B,N,3,H,W
@@ -858,7 +858,7 @@ def model_inference(
     else:
         in_view_rgbs = rearrange(in_view_rgbs, "b t c h w -> (b t) c h w", t=num_in_views)
     tar_view_rgbs = rearrange(all_rgbs[0:1, tar_view_ids], "b t c h w -> (b t) c h w", t=num_tar_views)
-    if opt.dataset_name == "spatialgen":
+    if opt.dataset_names == ["spatialgen"]:
         tar_view_depths = rearrange(all_depths[0:1, tar_view_ids], "b t c h w -> (b t) c h w", t=num_tar_views)
         tar_view_sems = rearrange(all_sems[0:1, tar_view_ids], "b t c h w -> (b t) c h w", t=num_tar_views)
     in_view_rays = torch.cat([all_rays[0:1, in_view_ids]] * num_tasks)  # B,1,6,h,w
@@ -1759,7 +1759,7 @@ def main():
         "num_input_views": opt.num_input_views,
         "num_output_views": 16 - opt.num_input_views,
         "num_tasks": num_tasks,
-        "cd_attention_mid": num_tasks > 1,
+        "cd_attention_mid": num_tasks > 1 and opt.enable_mm_attn,
         "multiview_attention": True,
         "sparse_mv_attention": False,
         "disable_mv_attention_in_64x64": opt.input_res == 512,
@@ -1835,7 +1835,7 @@ def main():
 
     val_dataset = ExampleDataset(
         data_dir=opt.test_data_dir,
-        dataset_name=opt.dataset_name,
+        dataset_name=opt.dataset_names[0],
         split_filepath=opt.test_split_file,
         image_height=opt.input_res,
         image_width=opt.input_res,
@@ -1884,6 +1884,41 @@ def main():
         styled_prompt_idx=args.styled_prompt_idx,
     )
 
+    ##################
+    ### gaussian reconstruction and video rendering ###
+    ##################
+    infer_dir = os.path.abspath(infer_dir)
+    room_output_folders = [
+        f
+        for f in os.listdir(infer_dir + "/val")
+        if os.path.isdir(os.path.join(infer_dir, "val", f))
+        and os.path.exists(os.path.join(infer_dir, "val", f, "inference_results.npz"))
+    ]
+    os.chdir("./src/recons/Sparse-RaDeGS")
+    for room_output_folder in room_output_folders:
+        logger.info(f"Reconstructing scene: {room_output_folder}")
+        gs_train_cmd_str = (
+            "python3 train.py "
+            + f"--source_path {infer_dir}/val/{room_output_folder} "
+            + f"--model_path {infer_dir}/val/{room_output_folder}/sparseradegs_out "
+            + "--beta 5.0 "
+            + "--lambda_warp_reg 0.4 "
+            + "--iterations 7000 "
+            + "-r 1 "
+            + "--warp_reg_start_itr 3000 "
+        )
+        print(gs_train_cmd_str)
+        os.system(gs_train_cmd_str)
 
+        gs_render_cmd_str = (
+            "python3 render.py "
+            + f"--source_path {infer_dir}/val/{room_output_folder} "
+            + f"--model_path {infer_dir}/val/{room_output_folder}/sparseradegs_out "
+            + "--no_load_depth "
+            + "--iteration -1 "
+        )
+        print(gs_render_cmd_str)
+        os.system(gs_render_cmd_str)
+        
 if __name__ == "__main__":
     main()
