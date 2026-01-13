@@ -39,7 +39,7 @@
 
 ## ✨ News
 
-- [Nov, 2025] We release the training code of SpatialGen, incuding the multi-view diffusion training and the gassuain optimization.
+- [Jan, 2026] We release the training code of SpatialGen, incuding the multi-view diffusion training and the gassuain optimization.
 - [Nov, 2025] SpatialGen is accepted to 3DV 2026!
 - [Sep, 2025] We release the paper of SpatialGen!
 - [Aug, 2025] Initial release of SpatialGen-1.0!
