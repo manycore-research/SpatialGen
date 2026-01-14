@@ -79,6 +79,7 @@ python -m venv .venv
 source .venv/bin/activate
 
 pip install -r requirements.txt
+pip install src/recons/Sparse-RaDeGS/submodules/diff-gaussian-rasterization
 # Optional: fix the [flux inference bug](https://github.com/vllm-project/vllm/issues/4392)
 pip install nvidia-cublas-cu12==12.4.5.8
 ```
