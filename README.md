@@ -38,6 +38,7 @@
 </div>
 
 ## ✨ News
+- [April, 2026] The official data release approval is still undergoing. Researchers interested in early access to the full dataset may request pre-release access by emailing cfangac@connect.ust.hk. Please note that early access is currently limited to research use only. Requests will be reviewed and coordinated with ManyCore Inc. on a case-by-case basis.
 - [Jan, 2026] The offical **SpatialGen Dataset** will be released soon, it is undergoing the data releasing approval process of Manycore Tech Inc.
 - [Jan, 2026] We release the training code of SpatialGen, incuding the multi-view diffusion training and the gassuain optimization.
 - [Nov, 2025] SpatialGen is accepted to 3DV 2026!
